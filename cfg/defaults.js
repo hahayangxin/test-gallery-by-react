@@ -24,7 +24,7 @@ function getDefaultModules() {
         loader: 'style-loader!css-loader!postcss-loader!sass-loader?outputStyle=expanded&indentedSyntax'
       },
       {
-        test: /\.scss/,
+        test: /\.(scss)/,
         loader: 'style-loader!css-loader!postcss-loader!sass-loader?outputStyle=expanded'
       },
       {
@@ -40,7 +40,8 @@ function getDefaultModules() {
         loader: 'json-loader'
       },
       {
-        test: /\.(png|jpg|gif|woff|woff2)$/,
+        test: /\.(png|jpg|gif|woff|woff2|eot|svg|ttf)$/,
+        exclude: ['*.eot', '*.ttf'],
         // 处理图片，返回图片的url地址，limit指定了当图片小于8KB时，直接返回图片的base64编码的值，不返回url
         loader: 'url-loader?limit=8192'
       },
