@@ -26,6 +26,11 @@ let config = Object.assign({}, baseConfig, {
     new webpack.optimize.AggressiveMergingPlugin(), // 用来优化生成的代码段，提取相似的部分来生成公共的部分
     new webpack.NoErrorsPlugin()  // 用来保证编译过程不能出错
   ],
+  output: { // 在index.html中引入的/assets/app.js就是根据这里的配置来的
+    path: path.join(__dirname, '/../dist/assets'),
+    filename: 'app.js',
+    publicPath: "./assets/"
+  },
   module: defaultSettings.getDefaultModules()
 });
 

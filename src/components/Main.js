@@ -6,16 +6,19 @@ var imageDatas = require('../sources/imageDatas.json');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// 添加图片url信息
 (function genImageUrl(imageDataArr) {
 	for(var imageData of imageDataArr) {
 		imageData.imageUrl = require('../images/' + imageData.fileName);
 	}
 })(imageDatas);
 
+// 生成某一个区间范围内的值
 function getRangeRandom(low, high) {
   return Math.floor(Math.random() * (high - low) + low);
 }
 
+// 生成30°以内的正负值
 function get30degRandom() {
   return (Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30);
 }
@@ -48,6 +51,7 @@ class ImgFigure extends React.Component {
       })
     }
 
+    // 判断图片是否居中
     if(this.props.arrange.isCenter) {
       styleObj.zIndex = 11;
     }
@@ -72,7 +76,7 @@ class ImgFigure extends React.Component {
 class ControllerUnit extends React.Component {
 
   handleClick(e) {
-    //如果是图片是居中态，翻转；否则居中
+    //如果图片是居中态，翻转；否则居中
     if(this.props.arrange.isCenter) {
       this.props.inverse();
     } else {
@@ -85,8 +89,11 @@ class ControllerUnit extends React.Component {
 
   render() {
     var controllerUtilClassName = 'controller-unit';
+
+    // 图片是否居中
     if(this.props.arrange.isCenter) {
       controllerUtilClassName += ' is-center';
+      // 图片是否翻转
       if(this.props.arrange.isInverse) {
         controllerUtilClassName += ' is-inverse';
       }
@@ -98,6 +105,7 @@ class ControllerUnit extends React.Component {
   }
 }
 
+// AppComponent 保存了每一个 ControllerUnit的状态信息
 class AppComponent extends React.Component {
   constructor() {
     super();
@@ -134,7 +142,7 @@ class AppComponent extends React.Component {
 
   /**
    * 翻转图片
-   * @param  {Integer} index 翻转的图片的对应图片信息数组的index
+   * @param  index 翻转的图片对应的图片信息
    * @return {Function}
    */
   inverse(index) {
@@ -147,6 +155,11 @@ class AppComponent extends React.Component {
     }.bind(this);
   }
 
+  /**
+   * 居中图片
+   * @param  index 居中的图片对应的图片信息
+   * @return {Function}
+   */
   center(index) {
     return function() {
       this.rearrange(index);
@@ -232,10 +245,12 @@ class AppComponent extends React.Component {
     var imgFigureH = imgFigure.scrollHeight;
     var halfImgFigureW = Math.ceil(imgFigureW / 2);
     var halfImgFigureH = Math.ceil(imgFigureH / 2);
-
+    
+    // 中心图片对应的x y坐标
     this.constant.centerPos.left = halfStageW - halfImgFigureW;
     this.constant.centerPos.top = halfStageH - halfImgFigureH;
 
+    // 两侧图片对应的x、y轴区间
     this.constant.hPosRange.leftSecX[0] = -halfImgFigureW;
     this.constant.hPosRange.leftSecX[1] = halfStageW - halfImgFigureW * 3;
     this.constant.hPosRange.rightSecX[0] = halfImgFigureW + halfStageW;
@@ -243,6 +258,7 @@ class AppComponent extends React.Component {
     this.constant.hPosRange.y[0] = -halfImgFigureH;
     this.constant.hPosRange.y[1] = stageH - halfImgFigureH;
 
+    // 上侧图片对应的x、y轴区间
     this.constant.vPosRange.x[0] = halfStageW - imgFigureW;
     this.constant.vPosRange.x[1] = halfStageW;
     this.constant.vPosRange.topY[0] = -halfImgFigureH;
