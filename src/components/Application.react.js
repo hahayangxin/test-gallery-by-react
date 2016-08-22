@@ -5,6 +5,8 @@ var imageDatas = require('../sources/imageDatas.json');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ControllerUnit from './ControllerUnit.react';
+import ImgFigure from './ImgFigure.react';
 
 // 添加图片url信息
 (function genImageUrl(imageDataArr) {
@@ -21,88 +23,6 @@ function getRangeRandom(low, high) {
 // 生成30°以内的正负值
 function get30degRandom() {
   return (Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30);
-}
-
-class ImgFigure extends React.Component {
-
-  // 处理图片点击事件
-  handleClick(e) {
-    if(this.props.arrange.isCenter) {
-      this.props.inverse();
-    } else {
-      this.props.center();
-    }
-    e.stopPropagation();
-    e.preventDefault();
-  }
-
-  render() {
-    var styleObj = {};
-    
-    // 是否存在图片定位信息
-    if(this.props.arrange.pos) {
-      Object.assign(styleObj, this.props.arrange.pos);
-    }
-
-    // 是否存在图片旋转信息
-    if(this.props.arrange.rotate) {
-      ['MozTransform', 'WebkitTransform', 'msTransform', 'transform'].forEach((value) => {
-        styleObj[value] = 'rotate(' + this.props.arrange.rotate + 'deg)';
-      })
-    }
-
-    // 判断图片是否居中
-    if(this.props.arrange.isCenter) {
-      styleObj.zIndex = 11;
-    }
-
-    var imgFigureClassName = 'img-figure';
-    imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
-
-    return (
-      <figure className={imgFigureClassName} style={styleObj} onClick={this.handleClick.bind(this)}>
-        <img src={this.props.data.imageUrl} alt={this.props.data.title}/>
-        <figcaption>
-          <h2 className="img-title">{this.props.data.title}</h2>
-          <div className="img-back" onClick={this.handleClick.bind(this)}>
-            <p>{this.props.data.desc}</p>
-          </div>
-        </figcaption>
-      </figure>
-    )
-  }
-}
-
-class ControllerUnit extends React.Component {
-
-  handleClick(e) {
-    //如果图片是居中态，翻转；否则居中
-    if(this.props.arrange.isCenter) {
-      this.props.inverse();
-    } else {
-      this.props.center();
-    }
-
-    e.stopPropagation();
-    e.preventDefault();
-  }
-
-  render() {
-    var controllerUtilClassName = 'controller-unit';
-
-    // 图片是否居中
-    if(this.props.arrange.isCenter) {
-      controllerUtilClassName += ' is-center';
-      // 图片是否翻转
-      if(this.props.arrange.isInverse) {
-        controllerUtilClassName += ' is-inverse';
-      }
-    }
-
-    return (
-      <span className={controllerUtilClassName} onClick={this.handleClick.bind(this)}></span>
-    );
-  }
 }
 
 // AppComponent 保存了每一个 ControllerUnit的状态信息

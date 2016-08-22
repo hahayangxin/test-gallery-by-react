@@ -15,7 +15,7 @@ module.exports = {
   debug: true,  // 开启loders的debug模式
   devtool: 'eval',
   output: { // 在index.html中引入的assets/app.js就是根据这里的配置来的
-    path: path.join(__dirname, '/../dist/assets'),
+    path: path.join(__dirname, 'assets'),
     filename: 'app.js',
     publicPath: defaultSettings.publicPath
   },

@@ -1,0 +1,57 @@
+/** nav -- start */
+.controller-nav {
+  position: absolute;
+  left: 0;
+  bottom: 30px;
+  z-index: 101;
+
+  width: 100%;
+
+  text-align: center;
+
+  @at-root {
+    .controller-unit {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: 0 5px;
+
+      line-height: 30px; 
+
+      vertical-align: middle;
+      text-align: center;
+
+      background-color: #aaa;
+      border-radius: 50%;
+      cursor: pointer;
+
+      transform: scale(.5);
+      transition: transform .6s ease-in-out, background-color .3s;
+
+      &.is-center {
+        transform: scale(1);
+
+        background-color: #888;
+
+        &::after {
+          font-family: "turn-arrow-icons";
+          font-size: 80%;
+          color: #fff;
+
+          content: "\e600";
+          
+          /* 灰阶渲染 */
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        &.is-inverse {
+          background-color: #555;
+
+          transform: rotateY(180deg);
+        }
+      }
+    }
+  }
+}
+/** nav -- end */
