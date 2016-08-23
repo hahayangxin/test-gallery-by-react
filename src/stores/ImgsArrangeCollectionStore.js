@@ -1,13 +1,16 @@
 import Dispatcher from '../dispatcher/AppDispatcher';
 import assign from 'core-js/fn/object/assign';
 import events from 'events';
-import {getRangeRandom, get30degRandom} from '../utils/ImageArrangeUtils';
+import {getRangeRandom, get30degRandom} from '../utils/ImgsArrangeUtils';
 
 // 图片状态信息 { pos: {left: '0', top: '0'}, rotate: 30, isInverse: false, isCenter: false }
 var imgArrangeCollection = [];
+// 图片存放区间位置
 var constant = {};
+// 图片资源
 var imgDatas = [];
 
+// 设置图片状态信息
 function setImgArrangeCollection(imgDataArr) {
 	imgDatas = imgDataArr;
 	imgDataArr.forEach(function(value, index) {
@@ -37,8 +40,8 @@ function rearrange(centerIndex) {
 	var vPosRangeX = constant.vPosRange.x;
 
 	// 中间图片处理
-	var imgCenterArr = imgArrangeCollection.splice(centerIndex, 1);
-	imgCenterArr[0] = {
+	var imgCenterArr = imgArrangeCollection.splice(centerIndex, 1)[0];
+	imgCenterArr = {
 	  pos: centerPos,
 	  rotate: 0,
 	  isCenter: true
@@ -83,13 +86,12 @@ function rearrange(centerIndex) {
 	  imgArrangeCollection.splice(imgTopArrangeIndex, 0, imgTopArrangeArr[0]);
 	}
 
-	imgArrangeCollection.splice(centerIndex, 0, imgCenterArr[0]);
+	imgArrangeCollection.splice(centerIndex, 0, imgCenterArr);
 }
 
 /**
 * 翻转图片
 * @param  index 翻转的图片对应的图片信息
-* @return {Function}
 */
 function inverse(index) {
 	imgArrangeCollection[index].isInverse = !imgArrangeCollection[index].isInverse;
@@ -98,7 +100,6 @@ function inverse(index) {
 /**
 * 居中图片
 * @param  index 居中的图片对应的图片信息
-* @return {Function}
 */
 function center(index) {
 	rearrange(index);
@@ -145,7 +146,6 @@ function handleAction(action) {
 			break;
 		case 'set_img_arrange_collection':
 			setImgArrangeCollection(action.imageDatas);
-			emitChange();
 			break;
 		default:
 			break;

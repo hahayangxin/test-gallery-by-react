@@ -7,7 +7,6 @@ import ImgsArrangeCollectionCreator from '../actions/ImgsArrangeCollectionCreato
 	imageDataArr.forEach(function(imageData) {
 		imageData.imageUrl = require('../images/' + imageData.fileName);
 	});
-	return imageDatas;
 })(imageDatas);
 
 var AppUtils = {
