@@ -5,13 +5,13 @@ import React from 'react';
 class ImgFigure extends React.Component {
 	// 处理图片点击事件
   handleClick(e) {
+    e.stopPropagation();
+    
     if(this.props.arrange.isCenter) {
       this.props.inverse();
     } else {
       this.props.center();
     }
-    e.stopPropagation();
-    e.preventDefault();
   }
 
   render() {

@@ -1,7 +1,10 @@
 import 'core-js/fn/object/assign';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Application from './components/Application.react';
+import AppComponent from './components/Application.react';
+import AppUtils from './utils/AppUtils';
+
+AppUtils.initializeImgArrangeArr();
 
 // Render the main component into the dom
-ReactDOM.render(<Application />, document.getElementById('app'));
+ReactDOM.render(<AppComponent />, document.getElementById('app'));
